@@ -38,25 +38,25 @@ const initStates = {
         {
             team: 'red',
             color: 0,
-            startPosition: [-7, -7]
+            startPosition: [-6, -6]
         },
 
         {
             team: 'red',
             color: 1,
-            startPosition: [7, -7]
+            startPosition: [6, -6]
         },
 
         {
             team: 'blue',
             color: 0,
-            startPosition: [7, 7]
+            startPosition: [6, 6]
         },
 
         {
             team: 'blue',
             color: 1,
-            startPosition: [-7, 7]
+            startPosition: [-6, 6]
         }
     ]
 };
