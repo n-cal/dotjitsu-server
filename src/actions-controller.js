@@ -87,7 +87,7 @@ function approximateOutTime(dot) {
 }
 
 
-function outOfRingStep(io, roomId, dot) {
+function outOfRingStep(io, roomId, dot, dots) {
     clearTimeout(dot.timerForOut);
 
     const stopPosition = dot.getStopPosition();
@@ -100,7 +100,7 @@ function outOfRingStep(io, roomId, dot) {
             dot.exposed = false;
             dot.inGame = false;
 
-            //dots.addPointTo(dot.team);
+            dots.addPointToOpponentsOf(dot);
             
             respawnStep(io, roomId, dot)
             .then(() => exposeStep(io, roomId, dot));
@@ -108,11 +108,11 @@ function outOfRingStep(io, roomId, dot) {
             const clientRes = [];
             const payload = {
                 type: 'out_of_ring',
-                // redPoints: dots.redPoints,
-                // bluePoints: dots.bluePoints,
+                redPoints: dots.redPoints,
+                bluePoints: dots.bluePoints,
             };
 
-            clientRes.push({id: dot.id, payload});
+            clientRes.push({ id: dot.id, payload });
 
             io.to(roomId).emit('update', clientRes);
         }, outOfRingTime);
@@ -198,7 +198,7 @@ class ActionsController {
                     if(impulse) {
                         currentDot.addImpulse(impulse, t0);
     
-                        outOfRingStep(this.io, this.roomId, currentDot);
+                        outOfRingStep(this.io, this.roomId, currentDot, this.dots);
     
                         const payload = currentDot.getPolynomialMotion();
                         payload.type = 'motion';
@@ -229,7 +229,7 @@ class ActionsController {
 
         dot.addImpulse(impulse, t0);
 
-        outOfRingStep(this.io, this.roomId, dot)
+        outOfRingStep(this.io, this.roomId, dot, this.dots);
 
         const clientRes = [];
 
