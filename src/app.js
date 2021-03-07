@@ -1,15 +1,27 @@
 const RoomGenerator = require('./room-generator');
 const { setGameplayHandlers } = require('./gameplay-handlers');
-const { initInfo, playersPerRoom } = require('./game-config');
+const { initInfo } = require('./game-config');
 
 
 module.exports = function(io) {
-    const roomGen = new RoomGenerator(playersPerRoom);
+    const roomGenenerators = { 
+        2: new RoomGenerator(2),
+        4: new RoomGenerator(4)
+    };
 
     io.on('connection', socket => {
+
+        const playersPerRoom = parseInt(socket.handshake.query.playersPerRoom);
+        console.log(playersPerRoom);
+
+        if(playersPerRoom !== 2 && playersPerRoom !== 4) {
+            socket.disconnect(true);
+            return;
+        }
+
         socket.on('synchro', c0 => {
             socket.emit('synchro_response', [c0, Date.now()], (response) => {
-                const room = roomGen.fillRoom(socket);
+                const room = roomGenenerators[playersPerRoom].fillRoom(socket);
         
                 if(room.isReady) {
                     const gameInitInfo = initInfo(room.sockets);

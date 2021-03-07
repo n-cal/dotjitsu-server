@@ -23,11 +23,13 @@ const initStates = {
     2: [
         {
             team: 'red',
+            color: 0,
             startPosition: [0, 7]
         },
 
         {
             team: 'blue',
+            color: 0,
             startPosition: [0, -7]
         }
     ],
@@ -35,11 +37,27 @@ const initStates = {
     4: [
         {
             team: 'red',
-            startPostion: []
+            color: 0,
+            startPosition: [-7, -7]
         },
-        {},
-        {},
-        {}
+
+        {
+            team: 'red',
+            color: 1,
+            startPosition: [7, -7]
+        },
+
+        {
+            team: 'blue',
+            color: 0,
+            startPosition: [7, 7]
+        },
+
+        {
+            team: 'blue',
+            color: 1,
+            startPosition: [-7, 7]
+        }
     ]
 };
 
