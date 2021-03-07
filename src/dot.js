@@ -14,6 +14,8 @@ class Dot {
         this.canMove = true;
         this.exposed = true;
         this.canAttack = true;
+        this.inGame = true;
+        this.canDefend = true;
     }
 
     addImpulse(vector, t) {

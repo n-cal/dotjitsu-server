@@ -98,6 +98,7 @@ function outOfRingStep(io, roomId, dot) {
         dot.timerForOut = setTimeout(() => {
             dot.canMove = false;
             dot.exposed = false;
+            dot.inGame = false;
 
             //dots.addPointTo(dot.team);
             
@@ -147,6 +148,8 @@ function exposeStep(io, roomId, dot) {
         setTimeout(() => {
             dot.canMove = true;
             dot.exposed = true;
+            dot.inGame = true;
+            dot.canDefend = true;
 
             const clientRes = [];
             const payload = { type: 'expose'};
@@ -242,17 +245,34 @@ class ActionsController {
 
 
     defense(socketId, t0) {
-        return;
-        // const dot = this.dots.getDot(socketId);
+        const dot = this.dots.getDot(socketId);
 
-        // if(!dot.inGame) {
-        //     return;
-        // }
+        const clientRes = [];
 
-        // if(dot.canDefend) {
-        //     dot.exposed = false;
-        //     setTimeout();
-        // }
+        if(!dot.inGame || !dot.canDefend) {
+            const payload = { type: 'defense', execute: false, t0 };
+            clientRes.push({ id: dot.id, payload });
+        } else {
+            dot.canDefend = false;
+            dot.exposed = false;
+    
+            setTimeout(() => {
+                if(dot.inGame) {
+                    dot.exposed = true;
+                }
+
+                setTimeout(() => {
+                    dot.canDefend = true;
+                }, defenseReloadTime);
+                
+            }, defenseTime);
+
+            const payload = { type: 'defense', execute: true, t0 };
+            clientRes.push({ id: dot.id, payload });
+        }
+
+        this.io.to(this.roomId).emit('update', clientRes);
+        
     }
 }
 
