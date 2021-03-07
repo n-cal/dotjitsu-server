@@ -1,3 +1,5 @@
+const playersPerRoom = 2;
+
 const K = 4 / (100 * 200);
 const moveImpulse = 4 / 100;
 const maxThrowImpulse = 4 * moveImpulse;
@@ -6,9 +8,9 @@ const outRingDelta = 0.05;
 const respawnTime = 2000;
 const respawnRingRadious = 10;
 const exposeTime = 1500;
-const safeDistance = 5;
+const safeDistance = 5.8;
 const attackReloadTime = 1000;
-const defenseTime = 150;
+const defenseTime = 300;
 const defenseReloadTime = 1000;
 
 
@@ -46,6 +48,7 @@ function initInfo(sockets) {
 
 
 module.exports = {
+    playersPerRoom,
     K, 
     moveImpulse, 
     maxThrowImpulse, 

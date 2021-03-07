@@ -1,8 +1,6 @@
 const RoomGenerator = require('./room-generator');
 const { setGameplayHandlers } = require('./gameplay-handlers');
-const { initInfo } = require('./game-config');
-
-const playersPerRoom = 2;
+const { initInfo, playersPerRoom } = require('./game-config');
 
 
 module.exports = function(io) {
