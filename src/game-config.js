@@ -6,7 +6,7 @@ const maxThrowImpulse = 4 * moveImpulse;
 const ringRadious = 14;
 const outRingDelta = 0.05;
 const respawnTime = 2000;
-const respawnRingRadious = 10;
+const respawnSquareDimension = 16;
 const exposeTime = 1500;
 const safeDistance = 5.8;
 const attackReloadTime = 1000;
@@ -32,7 +32,15 @@ const initStates = {
         }
     ],
 
-    4: []
+    4: [
+        {
+            team: 'red',
+            startPostion: []
+        },
+        {},
+        {},
+        {}
+    ]
 };
 
 
@@ -56,7 +64,7 @@ module.exports = {
     ringRadious,
     outRingDelta,
     respawnTime,
-    respawnRingRadious,
+    respawnSquareDimension,
     exposeTime,
     safeDistance,
     attackReloadTime,

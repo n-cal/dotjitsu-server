@@ -6,7 +6,7 @@ const {
     ringRadious,
     outRingDelta,
     respawnTime,
-    respawnRingRadious,
+    respawnSquareDimension,
     exposeTime,
     safeDistance,
     attackReloadTime,
@@ -55,8 +55,8 @@ function getImpulseByDistance(distanceVector) {
 
 
 function randomPosition() {
-    const x = Math.floor(Math.random() * 2 * respawnRingRadious) - respawnRingRadious;
-    const y = Math.floor(Math.random() * 2 * respawnRingRadious) - respawnRingRadious;
+    const x = Math.floor(Math.random() * respawnSquareDimension) - (respawnSquareDimension / 2);
+    const y = Math.floor(Math.random() * respawnSquareDimension) - (respawnSquareDimension / 2);
 
     return new Vector2(x, y);
 }
