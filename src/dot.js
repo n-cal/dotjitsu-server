@@ -13,6 +13,7 @@ class Dot {
 
         this.canMove = true;
         this.exposed = true;
+        this.canAttack = true;
     }
 
     addImpulse(vector, t) {
@@ -54,6 +55,13 @@ class Dot {
 
     getPolynomialMotion() {
         return eq.getPolynomialMotion(this.direction, this.v0, this.x0);
+    }
+
+    restartAt(position) {
+        this.x0 = position;
+        this.v0 = 0;
+        this.t0 = Date.now();
+        this.direction = new Vector2(0, 0);
     }
 }
 

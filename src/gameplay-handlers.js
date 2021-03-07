@@ -16,7 +16,6 @@ function setGameplayHandlers(io, roomId, sockets, playersInitInfo) {
                 case 'left':
                 case 'right':
                     
-                    
                     controller.move(socket.id, t0, action);
                     
                     break;
