@@ -12,7 +12,6 @@ module.exports = function(io) {
     io.on('connection', socket => {
 
         const playersPerRoom = parseInt(socket.handshake.query.playersPerRoom);
-        console.log(playersPerRoom);
 
         if(playersPerRoom !== 2 && playersPerRoom !== 4) {
             socket.disconnect(true);
