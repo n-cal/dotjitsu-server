@@ -12,13 +12,13 @@ class DotsGroup {
         return this.dotsArr.find(dot => dot.id === id);
     }
 
-    addPointTo(team) {
-        switch(team) {
+    addPointToOpponentsOf(dot) {
+        switch(dot.team) {
             case 'red':
-                this.redPoints++;
+                this.bluePoints++;
                 break
             case 'blue':
-                this.bluePoints++;
+                this.redPoints++;
                 break;
             default:
                 return
