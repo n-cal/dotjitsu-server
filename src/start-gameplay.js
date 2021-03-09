@@ -1,7 +1,8 @@
 const  ActionsController = require('./actions-controller');
 const DotsGroup = require('./dots-group');
+const { gameDurationInSeconds } = require('./game-config');
 
-function setGameplayHandlers(io, roomId, sockets, playersInitInfo) {
+function startGameplay(io, roomId, sockets, playersInitInfo) {
 
     const dots = new DotsGroup(playersInitInfo);
     const controller = new ActionsController(io, roomId, dots);
@@ -49,7 +50,29 @@ function setGameplayHandlers(io, roomId, sockets, playersInitInfo) {
             }
         });
     });
+
+    
+    startGameTimer(() => {
+        io.to(roomId).emit('game_end', {
+            winner: dots.getWinner()
+        });
+
+        sockets.forEach(socket => {
+            socket.disconnect(true);
+        });
+    });
+
+
+    io.to(roomId).emit('game_ready', {
+        t0: Date.now(),
+        gameDuration: gameDurationInSeconds
+    });
 }
 
 
-module.exports = { setGameplayHandlers };
+function startGameTimer(cb) {
+    setTimeout(cb, gameDurationInSeconds * 1000);
+}
+
+
+module.exports = { startGameplay };

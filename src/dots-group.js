@@ -1,4 +1,5 @@
 const Dot = require('./dot');
+const { maxThrowImpulse } = require('./game-config');
 
 class DotsGroup {
     constructor(playersInitInfo) {
@@ -23,6 +24,16 @@ class DotsGroup {
             default:
                 return
         }
+    }
+
+    getWinner() {
+        if(this.redPoints > this.bluePoints) {
+            return 'red';
+        } else if(this.redPoints < this.bluePoints) {
+            return 'blue';
+        }
+
+        return 'tie';
     }
 }
 

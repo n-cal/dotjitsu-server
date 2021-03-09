@@ -1,4 +1,5 @@
 const playersPerRoom = 2;
+const gameDurationInSeconds = 120;
 
 const K = 4 / (100 * 200);
 const moveImpulse = 4 / 100;
@@ -75,6 +76,7 @@ function initInfo(sockets) {
 
 module.exports = {
     playersPerRoom,
+    gameDurationInSeconds,
     K, 
     moveImpulse, 
     maxThrowImpulse, 

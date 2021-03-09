@@ -1,5 +1,5 @@
 const RoomGenerator = require('./room-generator');
-const { setGameplayHandlers } = require('./gameplay-handlers');
+const { startGameplay } = require('./start-gameplay');
 const { initInfo } = require('./game-config');
 
 
@@ -32,8 +32,7 @@ module.exports = function(io) {
                             ackCount++;
 
                             if(ackCount === room.size) {
-                                setGameplayHandlers(io, room.id, room.sockets, gameInitInfo);
-                                io.to(room.id).emit('game_ready', ackCount);
+                                startGameplay(io, room.id, room.sockets, gameInitInfo);
                             }
                             
                         });
