@@ -1,8 +1,14 @@
 const playersPerRoom = 2;
 const gameDurationInSeconds = 120;
 
-const K = 4 / (100 * 200);
-const moveImpulse = 4 / 100;
+// const K = 4 / (100 * 200);
+// const moveImpulse = 4 / 100;
+const jump = 5;
+const jumpDuration = 400;
+
+const K = (2 * jump) / Math.pow(jumpDuration, 2);
+const moveImpulse = (2 * jump) / jumpDuration;
+
 const maxThrowImpulse = 4 * moveImpulse;
 const ringRadious = 17;
 const outRingDelta = 0.05;
