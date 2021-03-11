@@ -10,7 +10,7 @@ module.exports = function(io) {
     };
 
     io.on('connection', socket => {
-
+        
         const playersPerRoom = parseInt(socket.handshake.query.playersPerRoom);
 
         if(playersPerRoom !== 2 && playersPerRoom !== 4) {
