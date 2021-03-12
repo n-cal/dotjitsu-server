@@ -19,24 +19,29 @@ module.exports = function(io) {
         }
 
         socket.on('synchro', c0 => {
-            socket.emit('synchro_response', [c0, Date.now()], (response) => {
-                const room = roomGenenerators[playersPerRoom].fillRoom(socket);
-        
-                if(room.isReady) {
-                    const gameInitInfo = initInfo(room.sockets);
-                    
-                    let ackCount = 0;
-                    
-                    room.sockets.forEach(socket => {
-                        socket.emit('game_init', gameInitInfo, (response) => {
-                            ackCount++;
+            const now = Date.now();
+            socket.emit('synchro_response', [c0, now], (response) => {
 
-                            if(ackCount === room.size) {
-                                startGameplay(io, room.id, room.sockets, gameInitInfo);
-                            }
-                            
+                if(response.status === 'ok') {
+                    
+                    const room = roomGenenerators[playersPerRoom].fillRoom(socket);
+            
+                    if(room.isReady) {
+                        const gameInitInfo = initInfo(room.sockets);
+                        
+                        let ackCount = 0;
+                        
+                        room.sockets.forEach(socket => {
+                            socket.emit('game_init', gameInitInfo, (response) => {
+                                ackCount++;
+    
+                                if(ackCount === room.size) {
+                                    startGameplay(io, room.id, room.sockets, gameInitInfo);
+                                }
+                                
+                            });
                         });
-                    });
+                    }
                 }
             });
         });
